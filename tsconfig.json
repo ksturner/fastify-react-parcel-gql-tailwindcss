@@ -1,5 +1,10 @@
 {
-    "include": ["front/**/*.tsx?", "back/**/*.tsx?"],
+    "include": [
+        "./front/*.tsx?",
+        "./front/**/*.tsx?",
+        "./back/**/*.ts",
+        "./back/*.ts"
+    ],
     "exclude": [
         "node_modules",
         "**/*.d.ts",
@@ -8,7 +13,18 @@
         "build"
     ],
     "compilerOptions": {
+        "outDir": "./build",
+        "target": "es2018",
         "experimentalDecorators": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "declaration": true,
+        "removeComments": true,
+        "useDefineForClassFields": true,
+        "noUnusedLocals": false,
+        "strict": true,
         "esModuleInterop": true,
         "jsxImportSource": "react"
     }

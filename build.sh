@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-npx parcel build front/index.html --dist-dir build/public
+npx tsc -p tsconfig.json     # builds fastify server
+npx parcel build front/index.html --dist-dir build/public # bundles the frontend code

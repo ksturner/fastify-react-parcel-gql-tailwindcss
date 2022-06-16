@@ -1,17 +1,38 @@
-import express, { Express, Request, Response, NextFunction } from 'express';
-import cors from 'cors';
+import Fastify, { FastifyInstance, RouteShorthandOptions } from 'fastify';
+import { Server, IncomingMessage, ServerResponse } from 'http';
+import mercurius from 'mercurius';
 
-const app: Express = express();
-const port = 3000;
+const server: FastifyInstance = Fastify({});
 
-app.use(cors());
+const opts: RouteShorthandOptions = {
+    schema: {
+        response: {
+            200: {
+                type: 'object',
+                properties: {
+                    pong: {
+                        type: 'string',
+                    },
+                },
+            },
+        },
+    },
+};
 
-app.use(express.static('build/public'));
-
-app.get('/', (req: Request, res: Response, next: NextFunction) => {
-    res.sendFile('index.html', { root: 'build/public' });
+server.get('/ping', opts, async (request, reply) => {
+    return { pong: 'it worked!' };
 });
 
-app.listen(port, () => {
-    console.log(`Express server is running on port ${port}.`);
-});
+const start = async () => {
+    try {
+        await server.listen({ port: 3000 });
+
+        const address = server.server.address();
+        const port = typeof address === 'string' ? address : address?.port;
+        console.log(`listening on http://localhost:${port}`);
+    } catch (err) {
+        server.log.error(err);
+        process.exit(1);
+    }
+};
+start();
