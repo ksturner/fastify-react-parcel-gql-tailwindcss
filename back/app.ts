@@ -1,8 +1,6 @@
-import Fastify, { FastifyInstance, RouteShorthandOptions } from 'fastify';
-import { Server, IncomingMessage, ServerResponse } from 'http';
-import mercurius from 'mercurius';
+import fastify, { FastifyInstance, RouteShorthandOptions } from 'fastify';
 
-const server: FastifyInstance = Fastify({});
+const server: FastifyInstance = fastify({});
 
 const opts: RouteShorthandOptions = {
     schema: {
